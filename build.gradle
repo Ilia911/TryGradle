@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'com.itrex.java.lab'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+apply plugin: 'java'
+
+task devJar(type: Jar) {
+    destinationDir = file("${buildDir}/dev")
+    from sourceSets.main.output
+}
+
+task stableJar(type: Jar) {
+    destinationDir = file("${buildDir}/stable")
+    from sourceSets.main.output
+}
