@@ -5,6 +5,11 @@ plugins {
 group 'com.itrex.java.lab'
 version '1.0-SNAPSHOT'
 
+ext {
+    availableProfiles = ["dev", "stable"]
+    activeProfile = "dev"
+}
+
 repositories {
     mavenCentral()
 }
@@ -18,12 +23,12 @@ test {
     useJUnitPlatform()
 }
 
-task devJar(type: Jar) {
-    destinationDir = file("${buildDir}/dev")
-    from sourceSets.main.output
-}
+build {
+    if (project.hasProperty("profile") && availableProfiles.contains(project.profile)) {
+        activeProfile = project.profile
+    } else {
+        logger.warn("Profile unknown! Use default profile " + activeProfile)
+    }
 
-task stableJar(type: Jar) {
-    destinationDir = file("${buildDir}/stable")
-    from sourceSets.main.output
+    buildDir = "build/${activeProfile}"
 }

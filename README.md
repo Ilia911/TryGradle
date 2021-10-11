@@ -1,3 +1,3 @@
-gradle stableJar //for building into directory build/stable
+gradle build -Pprofile='stable' //for building into directory build/stable
 
-gradle devJar // for building into directory build/dev
+gradle build -Pprofile='dev' // for building into directory build/dev
